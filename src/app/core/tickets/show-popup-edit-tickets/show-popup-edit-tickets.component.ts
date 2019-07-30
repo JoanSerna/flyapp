@@ -1,21 +1,26 @@
-import { Component, Inject, OnInit } from '@angular/core';
-import { FormControl, FormGroup, Validators } from '@angular/forms';
-import { MAT_DIALOG_DATA, MatDialog, MatDialogRef } from '@angular/material';
-import { ToastrService } from 'ngx-toastr';
-import { Observable } from 'rxjs';
-import { auditTime, distinctUntilChanged, map, switchMap } from 'rxjs/operators';
 import { Airplanes } from '../../airplanes/models/Airplanes';
 import { AirplanesService } from '../../airplanes/services/airplanes.service';
+import {
+  auditTime,
+  distinctUntilChanged,
+  map,
+  switchMap
+  } from 'rxjs/operators';
+import { Component, Inject, OnInit } from '@angular/core';
 import { Flights } from '../../flights/models/Flights';
 import { FlightsService } from '../../flights/services/flights.service';
+import { FormControl, FormGroup, Validators } from '@angular/forms';
+import { MAT_DIALOG_DATA, MatDialog, MatDialogRef } from '@angular/material';
+import { Observable } from 'rxjs';
 import { Passenger } from '../../passenger/models/Passenger';
 import { PassengerService } from '../../passenger/services/passenger.service';
 import { TicketsService } from '../services/tickets.service';
+import { ToastrService } from 'ngx-toastr';
 
 @Component({
   selector: 'fly-show-popup-edit-tickets',
   templateUrl: './show-popup-edit-tickets.component.html',
-  styleUrls: ['./show-popup-edit-tickets.component.scss']
+  styleUrls: ['./show-popup-edit-tickets.component.scss'],
 })
 export class ShowPopupEditTicketsComponent implements OnInit {
   ticketUpdateForm: FormGroup;
@@ -35,8 +40,8 @@ export class ShowPopupEditTicketsComponent implements OnInit {
     private ticketsService: TicketsService,
     private toastrService: ToastrService,
     private matDialog: MatDialog,
-    private dialogRef: MatDialogRef<ShowPopupEditTicketsComponent>
-  ) { }
+    private dialogRef: MatDialogRef<ShowPopupEditTicketsComponent>,
+  ) {}
 
   ngOnInit() {
     this.initTicketUpdateFom();
@@ -49,15 +54,15 @@ export class ShowPopupEditTicketsComponent implements OnInit {
   private initTicketUpdateFom() {
     this.ticketUpdateForm = new FormGroup({
       id: new FormControl('', Validators.required),
-      valorTiquete: new FormControl('', Validators.required),
+      value: new FormControl('', Validators.required),
       ivaTiquete: new FormControl('', Validators.required),
-      descuentoTiquete: new FormControl('', Validators.required),
+      discount: new FormControl('', Validators.required),
       passenger: new FormControl('', Validators.required),
       passengers: new FormControl('', Validators.required),
       airplanes: new FormControl('', Validators.required),
       airplane: new FormControl('', Validators.required),
       flights: new FormControl('', Validators.required),
-      flight: new FormControl('', Validators.required)
+      flight: new FormControl('', Validators.required),
     });
   }
 
@@ -66,7 +71,7 @@ export class ShowPopupEditTicketsComponent implements OnInit {
     this.filteredPassengers$ = this.ticketUpdateForm.get('passenger').valueChanges.pipe(
       distinctUntilChanged(),
       auditTime(1000),
-      switchMap((value) => this.filterPassengers(value))
+      switchMap((value) => this.filterPassengers(value)),
     );
   }
 
@@ -75,7 +80,7 @@ export class ShowPopupEditTicketsComponent implements OnInit {
     this.filteredAirplanes$ = this.ticketUpdateForm.get('airplane').valueChanges.pipe(
       distinctUntilChanged(),
       auditTime(1000),
-      switchMap((value) => this.filterAirplanes(value))
+      switchMap((value) => this.filterAirplanes(value)),
     );
   }
 
@@ -84,16 +89,15 @@ export class ShowPopupEditTicketsComponent implements OnInit {
     this.filteredFlights$ = this.ticketUpdateForm.get('flight').valueChanges.pipe(
       distinctUntilChanged(),
       auditTime(1000),
-      switchMap((value) => this.filterFlights(value))
+      switchMap((value) => this.filterFlights(value)),
     );
   }
 
   private filterPassengers(value: string): Observable<Passenger[]> {
-    if ( value ) {
+    if (value) {
       const filterValue = value.toLowerCase();
       return this.passengers$.pipe(
-        map((resp) => resp.filter(
-          (passenger) => passenger.nombreCompleto.toLowerCase().indexOf(filterValue) === 0))
+        map((resp) => resp.filter((passenger) => passenger.name.toLowerCase().indexOf(filterValue) === 0)),
       );
     } else {
       return this.passengers$;
@@ -101,14 +105,16 @@ export class ShowPopupEditTicketsComponent implements OnInit {
   }
 
   private filterAirplanes(value: string): Observable<Airplanes[]> {
-    if ( value ) {
+    if (value) {
       const filterValue = value.toLowerCase();
       return this.airplanes$.pipe(
-        map((resp) => resp.filter(
-          (airplane) =>
-            airplane.aerolinea.toLowerCase().indexOf(filterValue) === 0 ||
-            airplane.descripcion.toLowerCase().indexOf(filterValue) === 0
-        ))
+        map((resp) =>
+          resp.filter(
+            (airplane) =>
+              airplane.airline.toLowerCase().indexOf(filterValue) === 0 ||
+              airplane.description.toLowerCase().indexOf(filterValue) === 0,
+          ),
+        ),
       );
     } else {
       return this.airplanes$;
@@ -116,14 +122,17 @@ export class ShowPopupEditTicketsComponent implements OnInit {
   }
 
   private filterFlights(value: string): Observable<Flights[]> {
-    if ( value ) {
+    if (value) {
       const filterValue = value.toLowerCase();
       return this.flights$.pipe(
-        map((resp) => resp.filter(
-          (flight) => flight.descripcion.toLowerCase().indexOf(filterValue) === 0 ||
-                      flight.ciudadDestino.toLowerCase().indexOf(filterValue) === 0 ||
-                      flight.ciudadOrigen.toLowerCase().indexOf(filterValue) === 0
-        ))
+        map((resp) =>
+          resp.filter(
+            (flight) =>
+              flight.description.toLowerCase().indexOf(filterValue) === 0 ||
+              flight.city_out.toLowerCase().indexOf(filterValue) === 0 ||
+              flight.city_from.toLowerCase().indexOf(filterValue) === 0,
+          ),
+        ),
       );
     } else {
       return this.flights$;
@@ -132,7 +141,6 @@ export class ShowPopupEditTicketsComponent implements OnInit {
 
   public setPassengerToControl(passenger: Passenger) {
     this.ticketUpdateForm.get('passengers').setValue(passenger);
-
   }
 
   public setFlightsToControl(flight: Flights) {
@@ -144,15 +152,14 @@ export class ShowPopupEditTicketsComponent implements OnInit {
   }
 
   public updateTicket(ticketUpdateForm: FormGroup) {
-    if ( ticketUpdateForm.valid ) {
-      this.ticketsService.updateTicket(ticketUpdateForm.value).subscribe(resp => {
-        if ( resp.status === 200 ) {
+    if (ticketUpdateForm.valid) {
+      this.ticketsService.updateTicket(ticketUpdateForm.value).subscribe((resp) => {
+        if (resp.status === 200) {
           this.ticketUpdateForm.reset();
           this.toastrService.success('Se actualizó', '¡Correcto!');
           this.dialogRef.close(true);
         } else {
           this.toastrService.error('Ocurrió un error', '¡Oops...!');
-
         }
       });
     } else {
@@ -161,7 +168,7 @@ export class ShowPopupEditTicketsComponent implements OnInit {
   }
 
   public calculateIva($event: any) {
-    const iva = ( $event.target.value * this.iva );
+    const iva = $event.target.value * this.iva;
     this.ticketUpdateForm.get('ivaTiquete').setValue(iva);
   }
 }

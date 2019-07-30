@@ -1,8 +1,3 @@
 export class Airplanes {
-  constructor(
-    public id?: number,
-    public aerolinea?: string,
-    public descripcion?: string,
-    public cantidadMaximaPasajeros?: number
-  ) {}
+  constructor(public id?: number, public airline?: string, public description?: string, public amount?: number) {}
 }

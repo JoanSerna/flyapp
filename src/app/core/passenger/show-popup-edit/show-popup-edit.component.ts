@@ -1,13 +1,13 @@
 import { Component, Inject, OnInit } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { MAT_DIALOG_DATA, MatDialogRef } from '@angular/material';
-import { ToastrService } from 'ngx-toastr';
 import { PassengerService } from '../services/passenger.service';
+import { ToastrService } from 'ngx-toastr';
 
 @Component({
   selector: 'fly-show-popup-edit',
   templateUrl: './show-popup-edit.component.html',
-  styleUrls: ['./show-popup-edit.component.scss']
+  styleUrls: ['./show-popup-edit.component.scss'],
 })
 export class ShowPopupEditComponent implements OnInit {
   passengerUpdateForm: FormGroup;
@@ -16,8 +16,8 @@ export class ShowPopupEditComponent implements OnInit {
     @Inject(MAT_DIALOG_DATA) private data: any,
     private dialogRef: MatDialogRef<ShowPopupEditComponent>,
     private passengerService: PassengerService,
-    private toastr: ToastrService
-  ) { }
+    private toastr: ToastrService,
+  ) {}
 
   ngOnInit() {
     this.initPassengerUpdateForm();
@@ -25,9 +25,9 @@ export class ShowPopupEditComponent implements OnInit {
   }
 
   public updatePassenger(passengerUpdateForm: FormGroup) {
-    if ( passengerUpdateForm.valid ) {
-      this.passengerService.updatePassenger(passengerUpdateForm.value).subscribe(resp => {
-        if ( resp.status === 200 ) {
+    if (passengerUpdateForm.valid) {
+      this.passengerService.updatePassenger(passengerUpdateForm.value).subscribe((resp) => {
+        if (resp.status === 200) {
           this.toastr.success('Pasajero Actulizado Correctamente', '¡Correcto!');
           this.dialogRef.close(true);
         } else {
@@ -43,7 +43,7 @@ export class ShowPopupEditComponent implements OnInit {
     this.passengerUpdateForm = new FormGroup({
       id: new FormControl('', Validators.required),
       email: new FormControl('', [Validators.email]),
-      nombreCompleto: new FormControl('', Validators.required)
+      name: new FormControl('', Validators.required),
     });
   }
 }

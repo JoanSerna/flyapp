@@ -1,78 +1,77 @@
 <fly-sidenav></fly-sidenav>
 <main>
-    <mat-horizontal-stepper [linear]="isLinear">
-      <mat-step label="Pasajeros">
-        <button mat-button matStepperNext color="primary">Siguiente</button>
-        <div class="mat-elevation-z8">
-          <table mat-table [dataSource]="passenger$ | async" class="w-100 align-items-center text-center">
-            <ng-container matColumnDef="email">
-              <th mat-header-cell *matHeaderCellDef class="text-center">Email</th>
-              <td mat-cell *matCellDef="let passenger"> {{passenger.email}} </td>
-            </ng-container>
+  <mat-horizontal-stepper [linear]="isLinear">
+    <mat-step label="Pasajeros">
+      <button mat-button matStepperNext color="primary">Siguiente</button>
+      <div class="mat-elevation-z8">
+        <table mat-table [dataSource]="passenger$ | async" class="w-100 align-items-center text-center">
+          <ng-container matColumnDef="email">
+            <th mat-header-cell *matHeaderCellDef class="text-center">Email</th>
+            <td mat-cell *matCellDef="let passenger"> {{ passenger.email }} </td>
+          </ng-container>
 
-            <ng-container matColumnDef="name">
-              <th mat-header-cell *matHeaderCellDef class="text-center">Nombre Completo</th>
-              <td mat-cell *matCellDef="let passenger"> {{passenger.nombreCompleto}} </td>
-            </ng-container>
+          <ng-container matColumnDef="name">
+            <th mat-header-cell *matHeaderCellDef class="text-center">name Completo</th>
+            <td mat-cell *matCellDef="let passenger"> {{ passenger.name }} </td>
+          </ng-container>
 
-            <ng-container matColumnDef="edit">
-              <th mat-header-cell *matHeaderCellDef class="text-center">Editar</th>
-              <td mat-cell *matCellDef="let passenger">
-                <mat-icon class="cursor-pointer" color="primary" (click)="showEditPassenger(passenger.id)">edit</mat-icon>
-              </td>
-            </ng-container>
+          <ng-container matColumnDef="edit">
+            <th mat-header-cell *matHeaderCellDef class="text-center">Editar</th>
+            <td mat-cell *matCellDef="let passenger">
+              <mat-icon class="cursor-pointer" color="primary" (click)="showEditPassenger(passenger.id)">edit</mat-icon>
+            </td>
+          </ng-container>
 
-            <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
-            <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
-          </table>
+          <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+          <tr mat-row *matRowDef="let row; columns: displayedColumns"></tr>
+        </table>
 
-          <mat-paginator [pageSizeOptions]="[5, 10, 20]" showFirstLastButtons></mat-paginator>
-        </div>
-      </mat-step>
-      <mat-step label="Crear Pasajero">
-        <div class="container">
-          <button mat-button matStepperPrevious>Atrás</button>
-          <div class="row">
-            <div class="col-12">
-              <mat-card>
-                <mat-card-header>
-                  <mat-card-title>Crear Pasajero</mat-card-title>
-                </mat-card-header>
-                <mat-card-content>
-                  <div class="container">
-                    <form [formGroup]="passengerForm" (submit)="registerPassenger(passengerForm)">
-
-                      <div class="row">
-                        <div class="col-xl-4 col-lg-6 col-md-6 col-sm-12">
-                          <mat-form-field appearance="outline">
-                            <mat-label>Email</mat-label>
-                            <input matInput placeholder="correo@gmail.com" type="email" formControlName="email">
-                            <mat-icon matSuffix>email</mat-icon>
-                          </mat-form-field>
-                        </div>
-                        <div class="col-xl-4 col-lg-6 col-md-6 col-sm-12">
-                          <mat-form-field appearance="outline">
-                            <mat-label>Nombre Completo</mat-label>
-                            <input matInput placeholder="Juan Sebastian" type="text" formControlName="nombreCompleto">
-                            <mat-icon matSuffix>perm_contact_calendar</mat-icon>
-                          </mat-form-field>
-                        </div>
-                        <div class="col-xl-4 col-lg-6 col-md-6 col-sm-12">
-                          <button mat-raised-button color="primary" type="submit">
-                            Crear
-                            <mat-icon>send</mat-icon>
-                          </button>
-                        </div>
+        <mat-paginator [pageSizeOptions]="[5, 10, 20]" showFirstLastButtons></mat-paginator>
+      </div>
+    </mat-step>
+    <mat-step label="Crear Pasajero">
+      <div class="container">
+        <button mat-button matStepperPrevious>Atrás</button>
+        <div class="row">
+          <div class="col-12">
+            <mat-card>
+              <mat-card-header>
+                <mat-card-title>Crear Pasajero</mat-card-title>
+              </mat-card-header>
+              <mat-card-content>
+                <div class="container">
+                  <form [formGroup]="passengerForm" (submit)="registerPassenger(passengerForm)">
+                    <div class="row">
+                      <div class="col-xl-4 col-lg-6 col-md-6 col-sm-12">
+                        <mat-form-field appearance="outline">
+                          <mat-label>Email</mat-label>
+                          <input matInput placeholder="correo@gmail.com" type="email" formControlName="email" />
+                          <mat-icon matSuffix>email</mat-icon>
+                        </mat-form-field>
                       </div>
-                    </form>
-                  </div>
-                </mat-card-content>
-              </mat-card>
-            </div>
+                      <div class="col-xl-4 col-lg-6 col-md-6 col-sm-12">
+                        <mat-form-field appearance="outline">
+                          <mat-label>name Completo</mat-label>
+                          <input matInput placeholder="Juan Sebastian" type="text" formControlName="name" />
+                          <mat-icon matSuffix>perm_contact_calendar</mat-icon>
+                        </mat-form-field>
+                      </div>
+                      <div class="col-xl-4 col-lg-6 col-md-6 col-sm-12">
+                        <button mat-raised-button color="primary" type="submit">
+                          Crear
+                          <mat-icon>send</mat-icon>
+                        </button>
+                      </div>
+                    </div>
+                  </form>
+                </div>
+              </mat-card-content>
+            </mat-card>
           </div>
         </div>
-      </mat-step>
-    </mat-horizontal-stepper>
+      </div>
+    </mat-step>
+  </mat-horizontal-stepper>
 </main>
 
 <fly-footer></fly-footer>

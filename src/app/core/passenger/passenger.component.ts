@@ -36,7 +36,7 @@ export class PassengerComponent implements OnInit {
   private initPassengerForm() {
     this.passengerForm = new FormGroup({
       email: new FormControl('', [Validators.required, Validators.email]),
-      nombreCompleto: new FormControl('', Validators.required)
+      name: new FormControl('', Validators.required)
     });
   }
 

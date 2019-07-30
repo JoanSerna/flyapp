@@ -1,9 +1,9 @@
 export class Flights {
   constructor(
     public id?: number,
-    public descripcion?: string,
-    public fechaSalidad?: Date,
-    public ciudadOrigen?: string,
-    public ciudadDestino?: string
+    public description?: string,
+    public date_out?: Date,
+    public city_from?: string,
+    public city_out?: string,
   ) {}
 }

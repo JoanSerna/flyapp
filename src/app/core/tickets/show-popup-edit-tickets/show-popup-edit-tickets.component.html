@@ -6,53 +6,76 @@
         <div class="col-12">
           <mat-form-field appearance="outline" class="w-100">
             <mat-label>Valor Tiquete</mat-label>
-            <input matInput placeholder="15" type="money" formControlName="valorTiquete"
-                   (blur)="calculateIva($event)">
+            <input matInput placeholder="15" type="money" formControlName="value" (blur)="calculateIva($event)" />
             <mat-icon matSuffix>attach_money</mat-icon>
           </mat-form-field>
         </div>
         <div class="col-12">
           <mat-form-field appearance="outline" class="w-100">
             <mat-label>Descuento Tiquete</mat-label>
-            <input matInput placeholder="15" type="number" min="1" formControlName="descuentoTiquete">
+            <input matInput placeholder="15" type="number" min="1" formControlName="discount" />
             <mat-icon matSuffix>trending_up</mat-icon>
           </mat-form-field>
         </div>
         <div class="col-12">
           <mat-form-field class="w-100">
-            <input type="text" placeholder="Pasajero" aria-label="Number" matInput
-                   [matAutocomplete]="auto" formControlName="passenger">
+            <input
+              type="text"
+              placeholder="Pasajero"
+              aria-label="Number"
+              matInput
+              [matAutocomplete]="auto"
+              formControlName="passenger"
+            />
             <mat-autocomplete #auto="matAutocomplete">
-              <mat-option *ngFor="let passenger of filteredPassengers$ | async"
-                          [value]="passenger.nombreCompleto"
-                          (onSelectionChange)="setPassengerToControl(passenger)">
-                {{passenger.nombreCompleto}}
+              <mat-option
+                *ngFor="let passenger of filteredPassengers$ | async"
+                [value]="passenger.name"
+                (onSelectionChange)="setPassengerToControl(passenger)"
+              >
+                {{ passenger.name }}
               </mat-option>
             </mat-autocomplete>
           </mat-form-field>
         </div>
         <div class="col-12">
           <mat-form-field class="w-100">
-            <input type="text" placeholder="Vuelo" aria-label="Number" matInput
-                   [matAutocomplete]="autoFlight" formControlName="flight">
+            <input
+              type="text"
+              placeholder="Vuelo"
+              aria-label="Number"
+              matInput
+              [matAutocomplete]="autoFlight"
+              formControlName="flight"
+            />
             <mat-autocomplete #autoFlight="matAutocomplete">
-              <mat-option *ngFor="let flight of filteredFlights$ | async"
-                          [value]="flight.descripcion"
-                          (onSelectionChange)="setFlightsToControl(flight)">
-                {{flight.descripcion}}
+              <mat-option
+                *ngFor="let flight of filteredFlights$ | async"
+                [value]="flight.description"
+                (onSelectionChange)="setFlightsToControl(flight)"
+              >
+                {{ flight.description }}
               </mat-option>
             </mat-autocomplete>
           </mat-form-field>
         </div>
         <div class="col-12">
           <mat-form-field class="w-100">
-            <input type="text" placeholder="Avion" aria-label="Number" matInput
-                   [matAutocomplete]="autoAirplane" formControlName="airplane">
+            <input
+              type="text"
+              placeholder="Avion"
+              aria-label="Number"
+              matInput
+              [matAutocomplete]="autoAirplane"
+              formControlName="airplane"
+            />
             <mat-autocomplete #autoAirplane="matAutocomplete">
-              <mat-option *ngFor="let airplane of filteredAirplanes$ | async"
-                          [value]="airplane.aerolinea"
-                          (onSelectionChange)="setAirplanesToControl(airplane)">
-                {{airplane.aerolinea}}
+              <mat-option
+                *ngFor="let airplane of filteredAirplanes$ | async"
+                [value]="airplane.airline"
+                (onSelectionChange)="setAirplanesToControl(airplane)"
+              >
+                {{ airplane.airline }}
               </mat-option>
             </mat-autocomplete>
           </mat-form-field>
@@ -69,6 +92,3 @@
     </button>
   </mat-dialog-actions>
 </form>
-
-
-

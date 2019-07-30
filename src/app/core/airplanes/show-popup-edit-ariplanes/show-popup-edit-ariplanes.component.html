@@ -5,22 +5,21 @@
       <div class="row">
         <div class="col-12">
           <mat-form-field appearance="outline" class="w-100">
-            <mat-label>Aerolinea</mat-label>
-            <input matInput placeholder="Avianca" type="text" formControlName="aerolinea">
+            <mat-label>airline</mat-label>
+            <input matInput placeholder="Avianca" type="text" formControlName="airline" />
             <mat-icon matSuffix>local_airport</mat-icon>
           </mat-form-field>
         </div>
         <div class="col-12">
           <mat-form-field appearance="outline" class="w-100">
             <mat-label>Cantidad (Max) Pasajeros</mat-label>
-            <input matInput placeholder="5" type="number" min="1"
-                   formControlName="cantidadMaximaPasajeros">
+            <input matInput placeholder="5" type="number" min="1" formControlName="amount" />
             <mat-icon matSuffix>supervisor_account</mat-icon>
           </mat-form-field>
         </div>
         <div class="col-12">
           <mat-form-field class="w-100">
-            <textarea matInput placeholder="Descripcion" formControlName="descripcion"></textarea>
+            <textarea matInput placeholder="description" formControlName="description"></textarea>
           </mat-form-field>
         </div>
       </div>
@@ -35,5 +34,3 @@
     </button>
   </mat-dialog-actions>
 </form>
-
-

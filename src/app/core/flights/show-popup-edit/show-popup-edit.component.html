@@ -5,8 +5,13 @@
       <div class="row">
         <div class="col-12">
           <mat-form-field appearance="outline" class="w-100">
-            <input matInput [matDatepicker]="picker" placeholder="Fecha Salida"
-                   formControlName="fechaSalida" (dateChange)="assignDateToControl()">
+            <input
+              matInput
+              [matDatepicker]="picker"
+              placeholder="Fecha Salida"
+              formControlName="date_out"
+              (dateChange)="assignDateToControl()"
+            />
             <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
             <mat-datepicker #picker></mat-datepicker>
           </mat-form-field>
@@ -14,20 +19,20 @@
         <div class="col-12">
           <mat-form-field appearance="outline" class="w-100">
             <mat-label>Ciudad Origen</mat-label>
-            <input matInput placeholder="Cali" type="text" formControlName="ciudadOrigen">
+            <input matInput placeholder="Cali" type="text" formControlName="city_from" />
             <mat-icon matSuffix>location_city</mat-icon>
           </mat-form-field>
         </div>
         <div class="col-12">
           <mat-form-field appearance="outline" class="w-100">
             <mat-label>Ciudad Destino</mat-label>
-            <input matInput placeholder="Medellin" type="text" formControlName="ciudadDestino">
+            <input matInput placeholder="Medellin" type="text" formControlName="city_out" />
             <mat-icon matSuffix>location_city</mat-icon>
           </mat-form-field>
         </div>
         <div class="col-12">
           <mat-form-field class="w-100">
-            <textarea matInput placeholder="Descripcion" formControlName="descripcion"></textarea>
+            <textarea matInput placeholder="description" formControlName="description"></textarea>
           </mat-form-field>
         </div>
       </div>
@@ -42,5 +47,3 @@
     </button>
   </mat-dialog-actions>
 </form>
-
-

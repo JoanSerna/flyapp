@@ -5,9 +5,9 @@
         <button mat-button matStepperNext color="primary">Siguiente</button>
         <div class="mat-elevation-z8">
           <table mat-table [dataSource]="tickets$ | async" class="w-100 align-items-center text-center">
-            <ng-container matColumnDef="valorTiquete">
+            <ng-container matColumnDef="value">
               <th mat-header-cell *matHeaderCellDef class="text-center">Valor Tiquete</th>
-              <td mat-cell *matCellDef="let ticket"> {{ticket.valorTiquete}} </td>
+              <td mat-cell *matCellDef="let ticket"> {{ticket.value}} </td>
             </ng-container>
 
             <ng-container matColumnDef="ivaTiquete">
@@ -16,24 +16,24 @@
             </ng-container>
 
 
-            <ng-container matColumnDef="descuentoTiquete">
+            <ng-container matColumnDef="discount">
               <th mat-header-cell *matHeaderCellDef class="text-center">Descuento Tiquete</th>
-              <td mat-cell *matCellDef="let ticket"> {{ticket.descuentoTiquete}} </td>
+              <td mat-cell *matCellDef="let ticket"> {{ticket.discount}} </td>
             </ng-container>
 
             <ng-container matColumnDef="pasajero">
               <th mat-header-cell *matHeaderCellDef class="text-center">Pasajero</th>
-              <td mat-cell *matCellDef="let ticket"> {{ticket.passengers.nombreCompleto}} </td>
+              <td mat-cell *matCellDef="let ticket"> {{ticket.passengers.name}} </td>
             </ng-container>
 
             <ng-container matColumnDef="vuelo">
               <th mat-header-cell *matHeaderCellDef class="text-center">Vuelo</th>
-              <td mat-cell *matCellDef="let ticket"> {{ticket.flights.descripcion}} </td>
+              <td mat-cell *matCellDef="let ticket"> {{ticket.flights.description}} </td>
             </ng-container>
 
             <ng-container matColumnDef="avion">
               <th mat-header-cell *matHeaderCellDef class="text-center">Avión</th>
-              <td mat-cell *matCellDef="let ticket"> {{ticket.airplanes.aerolinea}} </td>
+              <td mat-cell *matCellDef="let ticket"> {{ticket.airplanes.airline}} </td>
             </ng-container>
 
             <ng-container matColumnDef="edit">
@@ -66,7 +66,7 @@
                         <div class="col-xl-4 col-lg-6 col-md-6 col-sm-12">
                           <mat-form-field appearance="outline" class="w-100">
                             <mat-label>Valor Tiquete</mat-label>
-                            <input matInput placeholder="15" type="money" formControlName="valorTiquete"
+                            <input matInput placeholder="15" type="money" formControlName="value"
                                    (blur)="calculateIva($event)">
                             <mat-icon matSuffix>attach_money</mat-icon>
                           </mat-form-field>
@@ -81,7 +81,7 @@
                         <div class="col-xl-4 col-lg-6 col-md-6 col-sm-12">
                           <mat-form-field appearance="outline" class="w-100">
                             <mat-label>Descuento Tiquete</mat-label>
-                            <input matInput placeholder="15" type="number" min="1" formControlName="descuentoTiquete">
+                            <input matInput placeholder="15" type="number" min="1" formControlName="discount">
                             <mat-icon matSuffix>trending_up</mat-icon>
                           </mat-form-field>
                         </div>
@@ -91,9 +91,9 @@
                                    [matAutocomplete]="auto" formControlName="passenger">
                             <mat-autocomplete #auto="matAutocomplete">
                               <mat-option *ngFor="let passenger of filteredPassengers$ | async"
-                                          [value]="passenger.nombreCompleto"
+                                          [value]="passenger.name"
                                           (onSelectionChange)="setPassengerToControl(passenger)">
-                                {{passenger.nombreCompleto}}
+                                {{passenger.name}}
                               </mat-option>
                             </mat-autocomplete>
                           </mat-form-field>
@@ -105,9 +105,9 @@
                                    [matAutocomplete]="autoFlight" formControlName="flight">
                             <mat-autocomplete #autoFlight="matAutocomplete">
                               <mat-option *ngFor="let flight of filteredFlights$ | async"
-                                          [value]="flight.descripcion"
+                                          [value]="flight.description"
                                           (onSelectionChange)="setFlightsToControl(flight)">
-                                {{flight.descripcion}}
+                                {{flight.description}}
                               </mat-option>
                             </mat-autocomplete>
                           </mat-form-field>
@@ -119,9 +119,9 @@
                                    [matAutocomplete]="autoAirplane" formControlName="airplane">
                             <mat-autocomplete #autoAirplane="matAutocomplete">
                               <mat-option *ngFor="let airplane of filteredAirplanes$ | async"
-                                          [value]="airplane.aerolinea"
+                                          [value]="airplane.airline"
                                           (onSelectionChange)="setAirplanesToControl(airplane)">
-                                {{airplane.aerolinea}}
+                                {{airplane.airline}}
                               </mat-option>
                             </mat-autocomplete>
                           </mat-form-field>

@@ -1,21 +1,27 @@
-import { ChangeDetectionStrategy, ChangeDetectorRef, Component, OnInit, ViewChild } from '@angular/core';
-import { FormControl, FormGroup, Validators } from '@angular/forms';
-import { MatDialog, MatPaginator } from '@angular/material';
-import { ToastrService } from 'ngx-toastr';
-import { Observable } from 'rxjs';
 import { Airplanes } from './models/Airplanes';
 import { AirplanesService } from './services/airplanes.service';
+import {
+  ChangeDetectionStrategy,
+  ChangeDetectorRef,
+  Component,
+  OnInit,
+  ViewChild
+  } from '@angular/core';
+import { FormControl, FormGroup, Validators } from '@angular/forms';
+import { MatDialog, MatPaginator } from '@angular/material';
+import { Observable } from 'rxjs';
 import { ShowPopupEditAriplanesComponent } from './show-popup-edit-ariplanes/show-popup-edit-ariplanes.component';
+import { ToastrService } from 'ngx-toastr';
 
 @Component({
   selector: 'fly-airplanes',
   templateUrl: './airplanes.component.html',
   styleUrls: ['./airplanes.component.scss'],
-  changeDetection: ChangeDetectionStrategy.OnPush
+  changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class AirplanesComponent implements OnInit {
   isLinear = false;
-  displayedColumns: string[] = ['aerolinea', 'cantidadPasajeros', 'descripcion', 'edit'];
+  displayedColumns: string[] = ['airline', 'amount', 'description', 'edit'];
   airplaneForm: FormGroup;
   airplanes$: Observable<Airplanes[]>;
   @ViewChild(MatPaginator, { static: true }) paginator: MatPaginator;
@@ -24,8 +30,8 @@ export class AirplanesComponent implements OnInit {
     private toastr: ToastrService,
     private changeDetectorRefs: ChangeDetectorRef,
     private matDialog: MatDialog,
-    private airplaneService: AirplanesService
-  ) { }
+    private airplaneService: AirplanesService,
+  ) {}
 
   ngOnInit() {
     this.initAirplaneForm();
@@ -34,16 +40,16 @@ export class AirplanesComponent implements OnInit {
 
   private initAirplaneForm() {
     this.airplaneForm = new FormGroup({
-      aerolinea: new FormControl('', Validators.required),
-      descripcion: new FormControl('', Validators.required),
-      cantidadMaximaPasajeros: new FormControl('', Validators.required)
+      airline: new FormControl('', Validators.required),
+      description: new FormControl('', Validators.required),
+      amount: new FormControl('', Validators.required),
     });
   }
 
   public registerAirplane(airplaneForm: FormGroup) {
-    if ( airplaneForm.valid ) {
-      this.airplaneService.createFlight(airplaneForm.value).subscribe(resp => {
-        if ( resp.status === 200 ) {
+    if (airplaneForm.valid) {
+      this.airplaneService.createFlight(airplaneForm.value).subscribe((resp) => {
+        if (resp.status === 200) {
           this.refresh();
           this.airplaneForm.reset();
           this.toastr.success('Avion creado correctamente!', '¡Correcto!');
@@ -64,10 +70,10 @@ export class AirplanesComponent implements OnInit {
   public showEditAirplane(id: number) {
     const dialogRef = this.matDialog.open(ShowPopupEditAriplanesComponent, {
       width: '400px',
-      data: id
+      data: id,
     });
-    dialogRef.afterClosed().subscribe(resp => {
-      if ( resp ) {
+    dialogRef.afterClosed().subscribe((resp) => {
+      if (resp) {
         this.refresh();
       }
     });
